@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+      <persistence-unit name="appService" transaction-type="JTA">
+            <jta-data-source>java:/yonder/db</jta-data-source>
+            <!--<jar-file>base-model-1.0-SNAPSHOT.jar</jar-file>-->
+            <!--<class>com.chriseze.yonder.entity.entities.Admin</class>-->
+            <!--<class>com.chriseze.yonder.entity.entities.Client</class>-->
+            <!--<class>com.chriseze.yonder.entity.entities.Document</class>-->
+            <!--<class>com.chriseze.yonder.entity.entities.JobOpening</class>-->
+            <!--<class>com.chriseze.yonder.entity.entities.Message</class>-->
+            <!--<class>com.chriseze.yonder.entity.entities.OtpStatusRecord</class>-->
+            <!--<class>com.chriseze.yonder.entity.entities.Project</class>-->
+            <!--<class>com.chriseze.yonder.entity.entities.ProjectRequest</class>-->
+            <!--<class>com.chriseze.yonder.entity.entities.Review</class>-->
+            <!--<class>com.chriseze.yonder.entity.entities.Skill</class>-->
+            <!--<class>com.chriseze.yonder.entity.entities.SocialMedia</class>-->
+            <!--<class>com.chriseze.yonder.entity.entities.Talent</class>-->
+
+            <properties>
+                <property name="hibernate.hbm2ddl.auto" value="update"/>
+                <property name="hibernate.archive.autodetection" value="class" />
+                <property name="hibernate.connection.release_mode" value ="after_transaction"/>
+                <property name="org.hibernate.envers.do_not_audit_optimistic_locking_field" value="false"/>
+                <property name="org.hibernate.envers.store_data_at_delete" value ="true"/>
+                <property name="org.hibernate.envers.audit_table_prefix" value ="ZZ_"/>
+                <property name="org.hibernate.envers.audit_table_suffix" value = ""/>
+            </properties>
+      </persistence-unit>
+</persistence>

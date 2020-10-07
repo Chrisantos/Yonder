@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.chriseze</groupId>
+  <artifactId>jp-processor</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+
+
+  <name>jp-processor</name>
+  <!-- FIXME change it to the project's website -->
+  <url>http://www.example.com</url>
+
+  <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <maven.compiler.source>1.8</maven.compiler.source>
+      <maven.compiler.target>1.8</maven.compiler.target>
+      <app-server-scope>provided</app-server-scope>
+
+      <version.wildfly.swarm>2018.2.0</version.wildfly.swarm>
+  </properties>
+
+  <dependencyManagement>
+      <dependencies>
+          <dependency>
+              <groupId>org.wildfly.swarm</groupId>
+              <artifactId>bom-all</artifactId>
+              <version>${version.wildfly.swarm}</version>
+              <scope>import</scope>
+              <type>pom</type>
+          </dependency>
+      </dependencies>
+  </dependencyManagement>
+
+  <build>
+      <finalName>jp-processor</finalName>
+      <plugins>
+          <plugin>
+              <groupId>org.wildfly.swarm</groupId>
+              <artifactId>wildfly-swarm-plugin</artifactId>
+              <version>${version.wildfly.swarm}</version>
+              <configuration>
+                  <properties>
+                      <swarm.context.path>${project.build.finalName}</swarm.context.path>
+                  </properties>
+              </configuration>
+              <executions>
+                  <execution>
+                      <goals>
+                          <goal>package</goal>
+                      </goals>
+                  </execution>
+              </executions>
+          </plugin>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-war-plugin</artifactId>
+              <version>3.2.0</version>
+              <configuration>
+                  <failOnMissingWebXml>false</failOnMissingWebXml>
+                  <archive>
+                      <manifest>
+                          <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                      </manifest>
+                      <manifestEntries>
+                          <Logging-Profile>inventory</Logging-Profile>
+                          <Dependencies>
+                            org.apache.commons.lang,org.apache.commons.lang3,org.apache.commons.io,com.fasterxml.jackson.core.jackson-core,
+                            com.google.guava,asm.asm,org.slf4j,com.fasterxml.classmate,org.codehaus.jackson.jackson-core-asl,
+                            org.codehaus.jackson.jackson-jaxrs,org.codehaus.jackson.jackson-mapper-asl,org.codehaus.jackson.jackson-xc,
+                            org.jboss.jandex,org.jboss.logging,org.jboss.resteasy.resteasy-jackson-provider,org.apache.commons.codec,
+                            org.hibernate,org.jboss.jandex
+                          </Dependencies>
+                      </manifestEntries>
+                  </archive>
+              </configuration>
+          </plugin>
+      </plugins>
+  </build>
+
+  <dependencies>
+        <dependency>
+              <groupId>org.glassfish</groupId>
+              <artifactId>javax.el</artifactId>
+              <version>3.0.0</version>
+              <scope>${app-server-scope}</scope>
+        </dependency>
+        <!-- Java EE 7 dependency -->
+        <dependency>
+              <groupId>javax</groupId>
+              <artifactId>javaee-api</artifactId>
+              <version>8.0</version>
+              <scope>provided</scope>
+        </dependency>
+
+        <!-- WildFly Swarm Fractions -->
+        <dependency>
+              <groupId>org.wildfly.swarm</groupId>
+              <artifactId>ribbon</artifactId>
+        </dependency>
+        <dependency>
+              <groupId>org.wildfly.swarm</groupId>
+              <artifactId>ejb</artifactId>
+        </dependency>
+        <dependency>
+              <groupId>org.wildfly.swarm</groupId>
+              <artifactId>transactions</artifactId>
+        </dependency>
+        <dependency>
+              <groupId>org.wildfly.swarm</groupId>
+              <artifactId>jpa</artifactId>
+        </dependency>
+        <dependency>
+              <groupId>org.wildfly.swarm</groupId>
+              <artifactId>jaxrs-validator</artifactId>
+        </dependency>
+        <dependency>
+              <groupId>org.wildfly.swarm</groupId>
+              <artifactId>jaxrs-jaxb</artifactId>
+        </dependency>
+        <dependency>
+              <groupId>org.wildfly.swarm</groupId>
+              <artifactId>jaxrs-jsonp</artifactId>
+        </dependency>
+        <dependency>
+              <groupId>org.wildfly.swarm</groupId>
+              <artifactId>cdi</artifactId>
+        </dependency>
+        <dependency>
+              <groupId>org.wildfly.swarm</groupId>
+              <artifactId>swagger</artifactId>
+        </dependency>
+
+        <dependency>
+              <groupId>org.wildfly.swarm</groupId>
+              <artifactId>messaging</artifactId>
+              <version>${version.wildfly.swarm}</version>
+        </dependency>
+        <dependency>
+              <groupId>org.wildfly.swarm</groupId>
+              <artifactId>remoting</artifactId>
+        </dependency>
+        <dependency>
+              <groupId>org.wildfly.swarm</groupId>
+              <artifactId>management</artifactId>
+        </dependency>
+        <dependency>
+              <groupId>org.wildfly.swarm</groupId>
+              <artifactId>jmx</artifactId>
+        </dependency>
+        <dependency>
+              <groupId>org.wildfly.swarm</groupId>
+              <artifactId>connector</artifactId>
+              <version>${version.wildfly.swarm}</version>
+        </dependency>
+
+        <dependency>
+              <groupId>org.apache.commons</groupId>
+              <artifactId>commons-lang3</artifactId>
+              <version>3.6</version>
+              <scope>${app-server-scope}</scope>
+        </dependency>
+
+        <dependency>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+              <version>1.16.18</version>
+              <scope>provided</scope>
+        </dependency>
+        <dependency>
+              <groupId>com.fasterxml.jackson.core</groupId>
+              <artifactId>jackson-core</artifactId>
+              <version>2.7.4</version>
+              <scope>${app-server-scope}</scope>
+        </dependency>
+        <dependency>
+              <groupId>com.fasterxml.jackson.core</groupId>
+              <artifactId>jackson-annotations</artifactId>
+              <version>2.7.4</version>
+              <scope>${app-server-scope}</scope>
+        </dependency>
+        <dependency>
+              <groupId>com.fasterxml.jackson.core</groupId>
+              <artifactId>jackson-databind</artifactId>
+              <version>2.7.4</version>
+              <scope>${app-server-scope}</scope>
+        </dependency>
+
+        <dependency>
+              <groupId>org.jboss.resteasy</groupId>
+              <artifactId>resteasy-client</artifactId>
+              <version>3.0.11.Final</version>
+              <scope>${app-server-scope}</scope>
+        </dependency>
+
+        <!--<dependency>-->
+              <!--<groupId>com.google.guava</groupId>-->
+              <!--<artifactId>guava</artifactId>-->
+              <!--<version>23.6-jre</version>-->
+              <!--<scope>${app-server-scope}</scope>-->
+        <!--</dependency>-->
+
+        <dependency>
+              <groupId>org.hibernate</groupId>
+              <artifactId>hibernate-envers</artifactId>
+              <version>5.0.10.Final</version>
+              <scope>${app-server-scope}</scope>
+              <exclusions>
+                    <exclusion>
+                      <groupId>dom4j</groupId>
+                      <artifactId>dom4j</artifactId>
+                    </exclusion>
+                    <exclusion>
+                      <groupId>org.jboss</groupId>
+                      <artifactId>jandex</artifactId>
+                    </exclusion>
+              </exclusions>
+        </dependency>
+
+        <dependency>
+              <groupId>com.h2database</groupId>
+              <artifactId>h2</artifactId>
+              <version>1.4.196</version>
+              <scope>test</scope>
+              <exclusions>
+                    <exclusion>
+                      <groupId>dom4j</groupId>
+                      <artifactId>dom4j</artifactId>
+                    </exclusion>
+              </exclusions>
+        </dependency>
+
+        <!-- Jandex is a tool that processes Java annotations within a directory or jar file, and saves the resulting metadata in an index file -->
+        <dependency>
+              <groupId>org.jboss</groupId>
+              <artifactId>jandex</artifactId>
+              <version>2.0.0.Final</version>
+              <scope>${app-server-scope}</scope>
+        </dependency>
+
+        <!-- For logging -->
+        <dependency>
+              <groupId>org.jboss.logging</groupId>
+              <artifactId>jboss-logging</artifactId>
+              <version>3.3.0.Final</version>
+              <scope>${app-server-scope}</scope>
+        </dependency>
+
+      <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+          <version>1.7.22</version>
+          <scope>${app-server-scope}</scope>
+      </dependency>
+
+        <!-- For JWT Authentication -->
+        <dependency>
+              <groupId>io.jsonwebtoken</groupId>
+              <artifactId>jjwt</artifactId>
+              <version>0.9.0</version>
+        </dependency>
+
+      <!-- Base Model -->
+      <dependency>
+          <groupId>com.chriseze</groupId>
+          <artifactId>base-model</artifactId>
+          <version>1.0-SNAPSHOT</version>
+      </dependency>
+
+  </dependencies>
+</project>
