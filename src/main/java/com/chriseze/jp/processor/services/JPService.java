@@ -13,15 +13,13 @@ import com.chriseze.jp.processor.restartifacts.JobResponse;
 import com.chriseze.jp.processor.restartifacts.RecommendationPojo;
 import com.chriseze.jp.processor.restartifacts.SocialMediaPojo;
 import com.chriseze.jp.processor.utils.ProxyUtil;
-import com.chriseze.jp.processor.entities.*;
+import com.chriseze.yonder.utils.entities.*;
 import com.chriseze.yonder.utils.enums.Industry;
 import com.chriseze.yonder.utils.enums.ProjectStatus;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -427,6 +425,7 @@ public class JPService {
 
         jobCompletionResponse.setNoOfDaysTaken(ChronoUnit.DAYS.between(createDate, endDate));
 
+        response.setCode(ResponseEnum.SUCCESS.getCode());
         response.setResult(jobCompletionResponse);
         response.setDescription("Project ended successfully");
         return response;

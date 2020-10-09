@@ -13,6 +13,6 @@ public class JobCompletionResponse implements Serializable {
     private String clientEmail;
     private String projectTitle;
     private Integer projectFee;
-    private long noOfDaysTaken;
-    private int noOfApplicants;
+    private Long noOfDaysTaken;
+    private Integer noOfApplicants;
 }
